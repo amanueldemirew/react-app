@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
-const App = () => {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  const[person, setPerson] =useState(
-    {
-       firstname: '',
-       lastname: ''
-    }
-  )
-  const [isLoading, setLoading] = useState(false);
-  return <div></div>;
-};
+function App() {
+  return (<div>
+    <Form/>
+  </div>);
+}
 
 export default App;
