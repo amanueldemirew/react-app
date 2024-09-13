@@ -3,9 +3,10 @@ import React, { useState } from "react";
 const App = () => {
   // const [firstName, setFirstName] = useState("");
   // const [lastName, setLastName] = useState("");
-  useState(
+  const[person, setPerson] =useState(
     {
-      
+       firstname: '',
+       lastname: ''
     }
   )
   const [isLoading, setLoading] = useState(false);
