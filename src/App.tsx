@@ -1,15 +1,15 @@
-import Button from "./components/Button";
-import Alert from "./components/Alert";
-import { useState } from "react";
+import ListGroup from "./components/ListGroup/ListGroup";
+import { FaCalendarDay } from "react-icons/fa";
+import Button from "./components/Button/Button";
+
+import './App.css';
+
 function App() {
-  const [alertVisible, setAlertVisible] = useState(false);
+  let items = ["New York", "san farnsico", "Addis", "deredwa"];
 
   return (
-    <div>
-      {alertVisible && <Alert onClose={() => setAlertVisible(false)}>My alert</Alert>}
-      <Button color="primary" onclick={() => setAlertVisible(true)}>
-        my button
-      </Button>
+    <div className="btn">
+      <Button  onclick={() => {}}>my button</Button>
     </div>
   );
 }
