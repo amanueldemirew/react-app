@@ -1,17 +1,15 @@
-import ListGroup from "./components/ListGroup/ListGroup";
-import { FaCalendarDay } from "react-icons/fa";
-import Button from "./components/Button/Button";
+import React, { useState } from "react";
 
-import './App.css';
-
-function App() {
-  let items = ["New York", "san farnsico", "Addis", "deredwa"];
-
-  return (
-    <div className="btn">
-      <Button  onclick={() => {}}>my button</Button>
-    </div>
-  );
-}
+const App = () => {
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  useState(
+    {
+      
+    }
+  )
+  const [isLoading, setLoading] = useState(false);
+  return <div></div>;
+};
 
 export default App;

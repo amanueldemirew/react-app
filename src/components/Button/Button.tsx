@@ -1,17 +1,19 @@
-import { ReactHTML, ReactNode } from "react";
+import styles from "./Button.module.css";
 
 interface Props {
   children: string;
   color?: "primary" | "secondary" | "danger";
-  onclick: () => void;
+  onClick: () => void;
 }
 
-const Button = ({ children, onclick, color = "primary" }: Props) => {
+const Button = ({ children, onClick, color = "primary" }: Props) => {
   return (
-    <button type="button" className={"btn btn-" + color} onClick={onclick}>
+    <button
+      className={[styles.btn, styles["btn-" + color]].join(" ")}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
 };
-
 export default Button;
