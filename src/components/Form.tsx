@@ -1,17 +1,21 @@
 import React, { FormEvent, useRef, useState } from "react";
 import { FieldValue, FieldValues, useForm, FormState } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 
-interface FormData {
-  name: string;
-  age: number;
-}
+const schema = z.object({
+  name: z.string().min(3, {message: " 3 character"}),
+  age: z.number({ invalid_type_error: 'Age field is required' }).min(18,{ message: 'Age must be at least 18' } ),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   console.log(register("name"));
 
@@ -24,36 +28,26 @@ const Form = () => {
         </label>
 
         <input
-          {...register("name", { required: true, minLength: 3 })}
+          {...register("name")}
           id="name"
           type="text"
           className="form-control"
         />
-        {errors.name?.type === "required" && (
-          <p className="text-danger">The name field is required.</p>
-        )}
-        {errors.name?.type === "minLength" && (
-          <p className="text-danger">The name must be at least 3 character.</p>
-        )}
+        {errors.name && <p className="text-danger">{errors.name.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
           age
         </label>
         <input
-          {...register("age", { required: true, minLength: 1, maxLength: 3 })}
+          {...register("age", { valueAsNumber: true  } )}
           id="age"
           type="number"
           className="form-control"
         />
       </div>
-      {errors.age?.type === "required" && (
-        <p className="text-danger">The age field is required.</p>
-      )}
-      {errors.age?.type === "maxLength" && (
-        <p className="text-danger">The age must be at most 3 character.</p>
-      )}
-      <button className="btn btn-primary">submit</button>
+      {errors.age && <p className="text-danger">{errors.age.message}</p>}
+      <button disabled={!isValid} className="btn btn-primary">submit</button>
     </form>
   );
 };
