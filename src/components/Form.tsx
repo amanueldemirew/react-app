@@ -1,10 +1,10 @@
-import React, { FormEvent, useRef, useState } from "react";
-import { FieldValue, FieldValues, useForm, FormState } from "react-hook-form";
+
+import {  FieldValues, useForm} from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 
 const schema = z.object({
-  name: z.string().min(3, {message: " 3 character"}),
+  name: z.string().min(3, {message: "it must have at least 3 character"}),
   age: z.number({ invalid_type_error: 'Age field is required' }).min(18,{ message: 'Age must be at least 18' } ),
 });
 
@@ -16,8 +16,6 @@ const Form = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  console.log(register("name"));
 
   const onSubmit = (data: FieldValues) => console.log(data);
   return (
