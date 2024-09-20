@@ -2,8 +2,7 @@ import catagories from "../catagories";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { z } from "zod";
-import errorMap from "zod/locales/en.js";
-import Message from "../../Message";
+
 
 const schema = z.object({
   description: z
