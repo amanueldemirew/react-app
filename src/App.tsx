@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import apiClient, { CanceledError } from "./services/api-client";
+import { CanceledError } from "./services/api-client";
 import userService, { User } from "./services/userService";
-
-
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -10,9 +8,8 @@ function App() {
   const [isloading, setIsloading] = useState(false);
 
   useEffect(() => {
-    
     setIsloading(true);
-    const{request, cancel } = userService.getAllUsers()
+    const { request, cancel } = userService.getAllUsers();
     request
       .then((res) => {
         setUsers(res.data);
@@ -29,7 +26,7 @@ function App() {
   const deleteUser = (user: User) => {
     const originalUser = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
-    apiClient.delete("/users/" + user.id).catch((err) => {
+    userService.deleteUSer(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUser);
     });
@@ -39,8 +36,8 @@ function App() {
     const originalUser = [...users];
     const newUser = { id: 0, name: "Mosh" };
     setUsers([newUser, ...users]);
-    apiClient
-      .post("https://jsonplaceholder.typicode.com/users/", newUser)
+    userService
+      .createUser(newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -52,7 +49,7 @@ function App() {
     const originalUser = [...users];
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
-    apiClient.patch("/users/" + user.id, updatedUser).catch((err) => {
+    userService.updatedUser(updatedUser).catch((err) => {
       setError(err.message);
       setUsers(originalUser);
     });
